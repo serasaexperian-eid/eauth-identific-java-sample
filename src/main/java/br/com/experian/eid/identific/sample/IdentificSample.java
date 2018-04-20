@@ -63,9 +63,9 @@ public class IdentificSample {
 
 	@PostConstruct
 	protected void init() throws GeneralSecurityException {
-		ClientHttpRequestFactory doesntUseInProduction = createDummyReqFactory();
+		ClientHttpRequestFactory dontUseInProduction = createDummyReqFactory();
 	
-		identificRest = new RestTemplate(doesntUseInProduction);
+		identificRest = new RestTemplate(dontUseInProduction);
 	}
 
 	private String getBaseUrl(HttpServletRequest request) {
@@ -78,10 +78,10 @@ public class IdentificSample {
 
 	@RequestMapping("/autenticacao")
 	@ResponseBody
-	public String authCallback(@RequestParam(name = "code", required = true) String code) {
+	public String authCallback(@RequestParam(name = "credential", required = true) String credential) {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> resp = identificRest
-				.getForObject(eauthIdentificRestUrl + "/auth/user_data?token=" + token + "&code=" + code, Map.class);
+				.getForObject(eauthIdentificRestUrl + "/auth/user_data?token=" + token + "&credential=" + credential, Map.class);
 		
 		return "Obrigado por logar, " + resp.get("name") + "!<br/>"
 				+ "<br/> CPF: " + resp.get("cpf")
