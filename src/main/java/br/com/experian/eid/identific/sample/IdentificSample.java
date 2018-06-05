@@ -2,26 +2,17 @@ package br.com.experian.eid.identific.sample;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.security.cert.X509Certificate;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.TrustStrategy;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,31 +32,10 @@ public class IdentificSample {
 	private RestTemplate identificRest;
 
 	private String token;
-	
-	/**
-	 * ATENCAO! Nao utilizar esse bypass em producao.
-	 * Apenas para testes em desenvolvimento com certificado para hostname localhost.
-	 * @return
-	 * @throws GeneralSecurityException
-	 */
-	private ClientHttpRequestFactory createDummyReqFactory() throws GeneralSecurityException {
-		HostnameVerifier acceptingHostnameVerifier = (hostname, session) -> true;
-		TrustStrategy acceptingTrustStrategy = (X509Certificate[] chain, String authType) -> true;
-		SSLContext sslContext = org.apache.http.ssl.SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy)
-				.build();
-		CloseableHttpClient httpClient = HttpClients.custom()
-				.setSSLSocketFactory(new SSLConnectionSocketFactory(sslContext, acceptingHostnameVerifier)).build();
-
-		HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
-		requestFactory.setHttpClient(httpClient);
-		return requestFactory;
-	}
 
 	@PostConstruct
 	protected void init() throws GeneralSecurityException {
-		ClientHttpRequestFactory dontUseInProduction = createDummyReqFactory();
-	
-		identificRest = new RestTemplate(dontUseInProduction);
+		identificRest = new RestTemplate();
 	}
 
 	private String getBaseUrl(HttpServletRequest request) {
