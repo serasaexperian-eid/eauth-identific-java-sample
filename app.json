@@ -1,0 +1,6 @@
+{
+  "name": "e-Auth Identific Sample",
+  "description": "Exemplo Java de utilização do serviço e-Auth Identific de autenticação via certificado digital",
+  "repository": "https://github.com/serasaexperian-eid/eauth-identific-java-sample",
+  "keywords": ["Spring Boot", "Heroku", "Deployment"]
+}
