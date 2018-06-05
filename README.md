@@ -3,10 +3,13 @@ Exemplo Java de utilização do serviço e-Auth Identific de autenticação via 
 
 ### Executando o exemplo ###
 
-1. Execute o IdentificSample
+1. Execute o IdentificSample.java
 1. Acesse http://localhost:8080/login
 1. Escolha o certificado a ser utilizado para autenticação
 1. Após a autenticação o Identific redireciona o usuário para http://localhost:8080/autenticacao, que por sua vez, exibirá os dados do dono do certificado.
+
+Você também pode fazer o deploy dessa aplicação de exemplo no Heroku:
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 ### Como funciona a API ###
 
