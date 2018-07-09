@@ -53,7 +53,8 @@ O Identific retorna o JSON com os dados do usuário e o status de validação do
 	"issuerCN":"AC SERASA RFB v5",
 	"certificateType":"A3",
 	"redirectUrl":"<url_to_get_response>",
-	"certificateAkiOfCertificate":"ecf1415157a8e63ae95eb3a022f9088ab53a878f",
+	"aki":"ecf1415157a8e63ae95eb3a022f9088ab53a878f",
+	"serialNumber":"98347489321",
 	"token":"1d868b96-56d0-4572-a6c4-a952a10e8fd8"
 }
 ```
