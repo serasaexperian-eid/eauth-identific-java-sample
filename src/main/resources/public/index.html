@@ -9,8 +9,35 @@
 		<h3>Clique no botão abaixo para efetuar o login.</h3>
 		<script type="text/javascript">
 			function login() {
-				window.location.replace('/login');
+				var loginTestUrl = 'https://login.eauth-identific-develop.apps.appcanvas.net/login/test';
+				var loginUrl = '/login';
+				var request = new XMLHttpRequest();
+				request.open("GET", loginTestUrl, true);
+				//request.setRequestHeader( 'Access-Control-Allow-Origin', '*');
+
+				request.onload = function () {
+				  console.log('LOADED', request.status);
+				  if(request.status == 200) {
+					  // Redirect
+					  window.location.replace(loginUrl);
+				  } else {
+					  onError(request.status);
+				  }
+				};
+				
+				request.onerror = function (event) {
+				  console.log('ERROR', request.status, event);
+				  onError(request.status);
+				};
+			    request.send(null);
 			}
+			
+			function onError(status) {
+		    	alert("ERRO DE LOGIN\n" +
+						"1) Verifique se o seu certificado digital está plugado na máquina\n" +
+						"2) Selecione o certificado quando o navegador selecionar\n" +
+						"3) Caso persista o erro, reinicie o seu navegador\n");
+		    }
 		</script>
 		<button type="submit" onclick="login()">Logar</button>
 	</body>
