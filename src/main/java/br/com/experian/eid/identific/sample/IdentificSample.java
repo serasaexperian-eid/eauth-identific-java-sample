@@ -53,14 +53,6 @@ public class IdentificSample {
 		identificRest = new RestTemplate();
 	}
 
-	private String getBaseUrl(HttpServletRequest request) {
-		String scheme = request.getScheme() + "://";
-		String serverName = request.getServerName();
-		String serverPort = (request.getServerPort() == 80) ? "" : ":" + request.getServerPort();
-		String contextPath = request.getContextPath();
-		return scheme + serverName + serverPort + contextPath;
-	}
-
 	@RequestMapping("/autenticacao")
 	@ResponseBody
 	public String authCallback(@RequestParam(name = "credential", required = true) String credential) {
