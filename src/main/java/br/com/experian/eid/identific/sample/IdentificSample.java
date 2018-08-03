@@ -2,7 +2,6 @@ package br.com.experian.eid.identific.sample;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,11 +38,11 @@ public class IdentificSample {
 	private String token;
 	//Identificador da aplicação cadastrada. Este identificador foi enviado para o seu e-mail quando 
 	//o cadastro da sua aplicação foi efetivado
-	private String appID="2bbfd1fb-5bb7-4a0b-8ebe-dda8311016b3"; 
+	private String appID="<Identificador da aplicação recebido por e-mail>"; 
 
 	//Chave da aplicação cadastrada. Esta chave foi enviado para o seu e-mail quando 
 	//o cadastro da sua aplicação foi efetivado
-	private String apiKey="zy7jhhVTqwesDR776m/JFHfxUrs=";
+	private String apiKey="<Chave recebida por e-mail>";
 
 	private MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
     
