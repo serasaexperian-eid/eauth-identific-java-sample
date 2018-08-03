@@ -1,12 +1,25 @@
 # eauth-identific-java-sample
 Exemplo Java de utilização do serviço e-Auth Identific de autenticação via certificado digital
 
+### Cadastrando para usar o serviço e-Auth Identific ###
+ 
+1. Para a utilização do serviço e-Auth Identific é necessário o cadastramento do seu site em nosso ambiente, localizado no endereço https://identific.certificadodigital.com.br.
+1. Clique no botão Inserir em meu site.
+1. Complete o cadastro com os seus dados pessoais, da empresa que trabalha e da aplicação. 
+1. Caso seja um cadastro para executar este exemplo insira em url de domiínio o seguinte endereço (http://localhost:8080) e em URL de redirecionamento (/autenticacao). 
+1. Após este cadastro ser efetuado você receberá, em seu e-mail, um identificador e uma chave para o seu site. Tanto o identificador como a chave serão necessários para o uso do serviço e-Auth Identific. 
+
 ### Executando o exemplo ###
 
+1. Tenha em mãos o identificador e a chave obtidos no cadastro da sua plaicação. Eles são necessários para a execução deste exemplo.   
+1. Dentro do arquivo fonte IdentificSample.java inicialize o campo appID com o identificador, recebido por e-mail,
+da sua aplicação.
+1. dentro do arquivo fonte IdentificSample.java inicialize o campo apiKey com a chave, recebida por e-mail,
+da sua aplicação.
 1. Execute o IdentificSample.java
 1. Acesse http://localhost:8080/login
 1. Escolha o certificado a ser utilizado para autenticação
-1. Após a autenticação o Identific redireciona o usuário para http://localhost:8080/autenticacao, que por sua vez, exibirá os dados do dono do certificado.
+1. Após a autenticação o Identific redireciona o usuário para a url cadastrada para a applicação. No caso do exemplo a url será http://localhost:8080/autenticacao, que por sua vez, exibirá os dados do dono do certificado.
 
 ### Como funciona a API ###
 
@@ -17,25 +30,27 @@ A API do Identific realiza a autenticação do usuário através de 3 passos: Ob
 Obtenção do Token:
 
 ```sh
-$ curl https://<API_URL>/auth/generate_token -k
+$ curl -X GET "https://identific.certificadodigital.com.br/api/v2/auth/generate_token" -H "Authorization: Bearer <Chave recebida por e-mail>"
+
 ```
 
 Redireciona o usuário para o login no browser:
 
 ```
-https://<LOGIN_URL>/login?token=<generated_token>&redirect_url=<url_to_get_response>
+https://login-identific.certificadodigital.com.br/login?token=<generated_token>&appId=<Identificador da aplicação recebido por e-mail>
 ```
 
 O Identific redireciona para <url_to_get_response>:
 
 ```
-<url_to_get_response>?credential=<credential>
+<url_to_get_response - Esta url foi a cadstrada para a aplicação>?credential=<credential>
+
 ```
 
 Validar as credenciais e obter as informações do usuário:
 
 ```sh
-$ curl https://<API_URL>/auth/user_data -d token=<token> -d credential=<credential> -k 
+$ curl https://identific.certificadodigital.com.br/api/v2/auth/user_data -d token=<token> -d credential=<credential> -H "Authorization: Bearer <Chave recebida por e-mail>" 
 ```
 
 O Identific retorna o JSON com os dados do usuário e o status de validação do certificado:

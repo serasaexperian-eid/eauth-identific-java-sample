@@ -2,6 +2,7 @@ package br.com.experian.eid.identific.sample;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -11,9 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,9 +38,20 @@ public class IdentificSample {
 	private RestTemplate identificRest;
 
 	private String token;
+	//Identificador da aplicação cadastrada. Este identificador foi enviado para o seu e-mail quando 
+	//o cadastro da sua aplicação foi efetivado
+	private String appID="2bbfd1fb-5bb7-4a0b-8ebe-dda8311016b3"; 
 
+	//Chave da aplicação cadastrada. Esta chave foi enviado para o seu e-mail quando 
+	//o cadastro da sua aplicação foi efetivado
+	private String apiKey="zy7jhhVTqwesDR776m/JFHfxUrs=";
+
+	private MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+    
+	
 	@PostConstruct
 	protected void init() throws GeneralSecurityException {
+		headers.add("Authorization", "Bearer " + apiKey);
 		identificRest = new RestTemplate();
 	}
 
@@ -49,20 +66,22 @@ public class IdentificSample {
 	@RequestMapping("/autenticacao")
 	@ResponseBody
 	public String authCallback(@RequestParam(name = "credential", required = true) String credential) {
-		@SuppressWarnings("unchecked")
-		Map<String, Object> resp = identificRest
-				.getForObject(eauthIdentificRestUrl + "/auth/user_data?token=" + token + "&credential=" + credential, Map.class);
+
+		ResponseEntity<Map> resp = identificRest.exchange(eauthIdentificRestUrl + "/auth/user_data?token=" + token + "&credential=" + credential, HttpMethod.GET, new HttpEntity<Object>(headers),
+				Map.class);
 		
-		return "Obrigado por logar, " + resp.get("name") + "!<br/>"
-				+ "<br/> CPF: " + resp.get("cpf")
-				+ "<br/> Email: " + resp.get("email")
-				+ "<br/> Status: " + resp.get("status");
+		return "Obrigado por logar, " + resp.getBody().get("name") + "!<br/>"
+				+ "<br/> CPF: " + resp.getBody().get("cpf")
+				+ "<br/> Email: " + resp.getBody().get("email")
+				+ "<br/> Status: " + resp.getBody().get("status");
 	}
 
 	@RequestMapping("/login")
 	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		ResponseEntity<String> genTokenResp = identificRest.getForEntity(eauthIdentificRestUrl + "/auth/generate_token",
+		
+		ResponseEntity<String> genTokenResp = identificRest.exchange(eauthIdentificRestUrl + "/auth/generate_token", HttpMethod.GET, new HttpEntity<Object>(headers),
 				String.class);
+
 		if (genTokenResp.getStatusCode() != HttpStatus.OK) {
 			response.sendError(genTokenResp.getStatusCodeValue(), genTokenResp.toString());
 			return;
@@ -70,11 +89,8 @@ public class IdentificSample {
 		// Obtem o token gerado.
 		token = genTokenResp.getBody();
 
-		// Callback URL
-		String callbackAuthUrl = getBaseUrl(request) + "/autenticacao";
-
 		// redireciona para o login Identific
-		response.sendRedirect(eauthIdentificLoginUrl + "?token=" + token + "&redirect_url=" + callbackAuthUrl);
+		response.sendRedirect(eauthIdentificLoginUrl + "?token=" + token + "&appId=" + appID);
 	}
 
 	public static void main(String[] args) throws Exception {
