@@ -43,7 +43,7 @@ https://login-identific.certificadodigital.com.br/login?token=<generated_token>&
 O Identific redireciona para <url_to_get_response>:
 
 ```
-<url_to_get_response - Esta url foi a cadstrada para a aplicação>?credential=<credential>
+<url_to_get_response - Esta url foi a cadastrada para a aplicação>?credential=<credential>
 
 ```
 
