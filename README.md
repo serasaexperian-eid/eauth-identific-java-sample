@@ -11,7 +11,7 @@ Exemplo Java de utilização do serviço e-Auth Identific de autenticação via 
 
 ### Executando o exemplo ###
 
-1. Tenha em mãos o identificador e a chave obtidos no cadastro da sua plaicação. Eles são necessários para a execução deste exemplo.   
+1. Tenha em mãos o identificador e a chave obtidos no cadastro da sua aplicação. Eles são necessários para a execução deste exemplo.   
 1. Dentro do arquivo fonte IdentificSample.java inicialize o campo appID com o identificador, recebido por e-mail,
 da sua aplicação.
 1. dentro do arquivo fonte IdentificSample.java inicialize o campo apiKey com a chave, recebida por e-mail,
