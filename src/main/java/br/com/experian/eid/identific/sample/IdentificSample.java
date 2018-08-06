@@ -63,7 +63,8 @@ public class IdentificSample {
 		return "Obrigado por logar, " + resp.getBody().get("name") + "!<br/>"
 				+ "<br/> CPF: " + resp.getBody().get("cpf")
 				+ "<br/> Email: " + resp.getBody().get("email")
-				+ "<br/> Status: " + resp.getBody().get("status");
+				+ "<br/> Status: " + resp.getBody().get("status")
+				+ "<br/> ID SCORE: " + resp.getBody().get("idScore");
 	}
 
 	@RequestMapping("/login")
