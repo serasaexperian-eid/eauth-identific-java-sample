@@ -17,8 +17,8 @@ da sua aplicação.
 1. dentro do arquivo fonte IdentificSample.java inicialize o campo apiKey com a chave, recebida por e-mail,
 da sua aplicação.
 1. Execute o IdentificSample.java
-1. Acesse http://localhost:8080/login
-1. Escolha o certificado a ser utilizado para autenticação
+1. Acesse http://localhost:8080
+1. Clique no botão e escolha o certificado a ser utilizado para autenticação
 1. Após a autenticação o Identific redireciona o usuário para a url cadastrada para a applicação. No caso do exemplo a url será http://localhost:8080/autenticacao, que por sua vez, exibirá os dados do dono do certificado.
 
 ### Como funciona a API ###
