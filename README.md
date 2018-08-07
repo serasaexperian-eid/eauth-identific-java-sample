@@ -11,14 +11,14 @@ Exemplo Java de utilização do serviço e-Auth Identific de autenticação via 
 
 ### Executando o exemplo ###
 
-1. Tenha em mãos o identificador e a chave obtidos no cadastro da sua plaicação. Eles são necessários para a execução deste exemplo.   
+1. Tenha em mãos o identificador e a chave obtidos no cadastro da sua aplicação. Eles são necessários para a execução deste exemplo.   
 1. Dentro do arquivo fonte IdentificSample.java inicialize o campo appID com o identificador, recebido por e-mail,
 da sua aplicação.
 1. dentro do arquivo fonte IdentificSample.java inicialize o campo apiKey com a chave, recebida por e-mail,
 da sua aplicação.
 1. Execute o IdentificSample.java
-1. Acesse http://localhost:8080/login
-1. Escolha o certificado a ser utilizado para autenticação
+1. Acesse http://localhost:8080
+1. Clique no botão e escolha o certificado a ser utilizado para autenticação
 1. Após a autenticação o Identific redireciona o usuário para a url cadastrada para a applicação. No caso do exemplo a url será http://localhost:8080/autenticacao, que por sua vez, exibirá os dados do dono do certificado.
 
 ### Como funciona a API ###
@@ -70,6 +70,7 @@ O Identific retorna o JSON com os dados do usuário e o status de validação do
 	"aki":"ecf1415157a8e63ae95eb3a022f9088ab53a878f",
 	"serialNumber":"98347489321",
 	"token":"1d868b96-56d0-4572-a6c4-a952a10e8fd8",
-	"certificateB64": "eyJhbGciOiJIUzUxMiJ9.eyJzdGF0dXMiOiJDZXJ0..."
+	"certificateB64": "eyJhbGciOiJIUzUxMiJ9.eyJzdGF0dXMiOiJDZXJ0...",
+	"idScore": 1000
 }
 ```
