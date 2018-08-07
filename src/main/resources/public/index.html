@@ -13,7 +13,7 @@
 				var loginUrl = '/login';
 				var request = new XMLHttpRequest();
 				request.open("GET", loginTestUrl, true);
-				//request.setRequestHeader( 'Access-Control-Allow-Origin', '*');
+				request.withCredentials = true;
 
 				request.onload = function () {
 				  console.log('LOADED', request.status);
@@ -28,6 +28,10 @@
 				request.onerror = function (event) {
 				  console.log('ERROR', request.status, event);
 				  onError(request.status);
+				};
+		        
+				request.onreadystatechange = function () {
+					console.log('status', request.responseText);
 				};
 			    request.send(null);
 			}
