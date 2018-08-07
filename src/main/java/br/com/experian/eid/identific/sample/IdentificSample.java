@@ -38,11 +38,11 @@ public class IdentificSample {
 	private String token;
 	//Identificador da aplicação cadastrada. Este identificador foi enviado para o seu e-mail quando 
 	//o cadastro da sua aplicação foi efetivado
-	private String appID="6653906e-96da-420e-aec2-f44a31a0c856"; 
+	private String appID="<Identificador da aplicação recebido por e-mail>"; 
 
 	//Chave da aplicação cadastrada. Esta chave foi enviado para o seu e-mail quando 
 	//o cadastro da sua aplicação foi efetivado
-	private String apiKey="W89/Tlx5B8vwhdMQBniqoOLqQR4=";
+	private String apiKey="<Chave recebida por e-mail>";
 
 	private MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
     
