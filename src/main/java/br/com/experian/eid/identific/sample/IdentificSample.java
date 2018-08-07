@@ -57,6 +57,7 @@ public class IdentificSample {
 	@ResponseBody
 	public String authCallback(@RequestParam(name = "credential", required = true) String credential) {
 
+		@SuppressWarnings("rawtypes")
 		ResponseEntity<Map> resp = identificRest.exchange(eauthIdentificRestUrl + "/auth/user_data?token=" + token + "&credential=" + credential, HttpMethod.GET, new HttpEntity<Object>(headers),
 				Map.class);
 		
